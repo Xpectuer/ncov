@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjut.azhen.ncov.mapping.RegionMapper">
+    <resultMap id="RegionResultMap" type="com.zjut.azhen.ncov.bean.Region">
+        <result column="id" javaType="int" jdbcType="INTEGER" property="id"/>
+        <result column="name"  javaType="string" jdbcType="VARCHAR" property="name"/>
+        <result column="confirmed" javaType="int" jdbcType="INTEGER" property="confirmed"/>
+    </resultMap>
+
+    <select id="getRegionRealtimeById" resultType="com.zjut.azhen.ncov.bean.Region">
+        SELECT id,ncov.region.provinceName name,ncov.region.confirmedCount confirmed FROM ncov.region where id=#{id}
+    </select>
+    <select id="getRegions" resultType="com.zjut.azhen.ncov.bean.Region">
+        SELECT id,ncov.region.provinceName name,ncov.region.confirmedCount confirmed FROM ncov.region
+    </select>
+</mapper>
