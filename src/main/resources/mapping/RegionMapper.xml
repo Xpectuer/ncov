@@ -9,9 +9,13 @@
     </resultMap>
 
     <select id="getRegionRealtimeById" resultType="com.zjut.azhen.ncov.bean.Region">
-        SELECT id,ncov.region.provinceName name,ncov.region.confirmedCount confirmed FROM ncov.region where id=#{id}
+        SELECT id,provinceName name,confirmedCount confirmed FROM ncov.epidemicin where id=#{id}
     </select>
     <select id="getRegions" resultType="com.zjut.azhen.ncov.bean.Region">
-        SELECT id,ncov.region.provinceName name,ncov.region.confirmedCount confirmed FROM ncov.region
+        SELECT id,provinceName name,confirmedCount confirmed FROM ncov.epidemicin
     </select>
+    <select id="getWorld" resultType="com.zjut.azhen.ncov.bean.Region">
+        SELECT id,countryName name,confirmedCount confirmed FROM epidemicall
+    </select>
+
 </mapper>

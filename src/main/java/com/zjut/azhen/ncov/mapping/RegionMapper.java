@@ -14,5 +14,7 @@ public interface RegionMapper {
 
     List<Region> getRegions();
 
+    List<Region> getWorld();
+
 
 }

@@ -10,17 +10,11 @@ public class Region {
     private int  confirmed;
 
 
-    private boolean selected=false;
 
 
-    @JSONField(name="selected")
-    public boolean isSelected() {
-        return selected;
-    }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
+
+
 
     @JSONField(name="value")
     public int getConfirmed() {
