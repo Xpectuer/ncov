@@ -61,7 +61,7 @@ public final class redisUtil{
     }
 
     //普通缓存获取
-    public Object fet(String key){
+    public Object get(String key){
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 

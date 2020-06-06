@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 
 
 
@@ -31,19 +31,17 @@ public class RegionService {
     public Region getRegionRealtimeById(int id){
         String key = "User" + id;
 
-        ValueOperations<String, Region> operations = null;
-
         boolean hasKey = redisTemplate.hasKey(key);
 
         if(hasKey){
-            Region region = operations.get(key);
+            Region region = (Region)redisTemplate.get(key);
             return region;
         }else{
             Region region=regionMapper.getRegionRealtimeById(id);
-            operations.set(key, region, 5);
+            redisTemplate.set(key, region,5);
         }
         Region region=regionMapper.getRegionRealtimeById(id);
-       System.out.println(region.getConfirmed());
+        System.out.println(region.getConfirmed());
         return region;
     }
     public List<Region>  getRegions(){
