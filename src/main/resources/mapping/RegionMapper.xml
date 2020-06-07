@@ -17,5 +17,20 @@
     <select id="getWorld" resultType="com.zjut.azhen.ncov.bean.Region">
         SELECT id,countryName name,confirmedCount confirmed FROM epidemicall
     </select>
+    <select id="getWorldRank" resultType="com.zjut.azhen.ncov.bean.Region">
+        SELECT countryName name, confirmedCount confirmed FROM epidemicall
+            order by confirmedCount desc
+        <if test="base !=null and offset !=null">
+            limit #{base},#{offset}
+        </if>
+    </select>
+    <select id="getChinaRank" resultType="com.zjut.azhen.ncov.bean.Region">
+        SELECT provinceName name, confirmedCount confirmed FROM epidemicin
+        order by confirmedCount desc
+        <if test="base !=null and offset !=null">
+        limit #{base},#{offset}
+    </if>
+    </select>
+
 
 </mapper>

@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.print.attribute.standard.Media;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/testBoot")
 public class RegionController {
 
-    private RegionService regionService;
+    private final RegionService regionService;
 
     public RegionController(RegionService service){regionService=service;}
     @RequestMapping("/getRegion/{id}")
@@ -67,5 +65,40 @@ public class RegionController {
         return MyFileUtil.getFile("/root/worldImg/"+id+".png");
         //return MyFileUtil.getFile("D:\\images\\"+id+".png");
     }
+
+    @GetMapping(value = "/getRank/{type}/{num}",produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String getRank(@PathVariable String type,@PathVariable Integer num){
+
+        if(num<0 ||num>20){
+            return "invalid num!";
+        }
+        Map<String,Object> map=new HashMap<>(2);
+        List<Object> list=new ArrayList<>(),list1=new ArrayList<>();
+        List<Region> list2;
+        if("world".equals(type)){
+        list2=regionService.getWorldRank(num);
+        }
+        else if("china".equals(type)){
+            list2=regionService.getChinaRank(num);
+        }
+        else {
+            //打成404
+            return "invalid request";
+        }
+        Collections.reverse(list2);
+        for(Region region : list2){
+            list.add(region.getName());
+            list1.add(region.getConfirmed());
+        }
+
+        map.put("x_data",list);
+        map.put("y_data",list1);
+
+        return JSON.toJSONString(map);
+    }
+
+
+
 
 }

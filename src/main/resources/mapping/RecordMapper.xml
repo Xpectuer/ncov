@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjut.azhen.ncov.mapping.RecordMapper">
+    <resultMap id="RecordResultMap" type="com.zjut.azhen.ncov.bean.Record">
+        <result column="pid" javaType="int" jdbcType="INTEGER" property="pid"/>
+        <result column="dateId" javaType="string" jdbcType="VARCHAR" property="dateId"/>
+        <result column="confirmedCount" javaType="int" jdbcType="INTEGER" property="confirmedCount"/>
+        <result column="currentConfirmedCount" javaType="int" jdbcType="INTEGER" property="curremtConfirmedCount"/>
+    </resultMap>
+
+
+    <select id="getWorldById"  resultType="com.zjut.azhen.ncov.bean.Record">
+        SELECT pid ,dateId ,confirmedCount,currentConfirmedCount FROM epidemichistoryall
+        where pid=#{pid} order by dateId desc
+        <if test="base !=null and offset !=null">
+            limit #{base},#{offset}
+        </if>
+
+    </select>
+
+    <select id="getChinaById" resultType="com.zjut.azhen.ncov.bean.Record">
+        SELECT pid ,date as dateId,confirmedCount ,currentConfirmedCount FROM epidemichistoryin
+        where pid=#{pid} order by date desc
+            <if test="base !=null and offset !=null">
+                limit #{base},#{offset}
+            </if>
+    </select>
+
+<!--    查询总共-->
+    <select id="getWorldTotal" resultType="com.zjut.azhen.ncov.bean.Record">
+        SELECT 1 as pid ,dateId ,SUM(confirmedCount) as confirmedCount ,SUM(currentConfirmedCount) as currentConfirmedCount FROM epidemichistoryall
+        group by dateId order by dateId desc
+        <if test="base !=null and offset !=null">
+            limit #{base},#{offset}
+        </if>
+    </select>
+
+
+
+
+
+
+
+</mapper>
+
+

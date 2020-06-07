@@ -1,4 +1,4 @@
-package com.zjut.azhen.ncov.redisConfig;
+package com.zjut.azhen.ncov.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -20,7 +20,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @EnableCaching
-public class redisConfig extends CachingConfigurerSupport {
+public class RedisConfig extends CachingConfigurerSupport {
 
     /**
      * 选择redis作为默认缓存工具

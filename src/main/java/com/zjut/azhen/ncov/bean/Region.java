@@ -2,18 +2,15 @@ package com.zjut.azhen.ncov.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+/**
+ * @author alex
+ */
 public class Region {
 
 
     private int id;
     private String name;
     private int  confirmed;
-
-
-
-
-
-
 
 
     @JSONField(name="value")

@@ -1,4 +1,4 @@
-package com.zjut.azhen.ncov.redisConfig;
+package com.zjut.azhen.ncov.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,11 +15,9 @@ import java.util.concurrent.TimeUnit;
  *编写RedisTemplate工具类
  */
 
-public final class redisUtil{
+public final class RedisUtil{
     @Autowired
     private RedisTemplate <Object, Object> redisTemplate;
-
-
 
     //指定缓存失效时间
     public boolean expire(String key, long time){
