@@ -27,18 +27,20 @@ public class RecordController {
     public String getById(@PathVariable String type, @PathVariable Integer id, @PathVariable Integer gran){
         //6.7解决反转、粒度问题
         //粒度 gran
+        StringBuilder key=new StringBuilder("data");
        if(gran<0 || gran >10) {
            return "invalid granularity!";
        }
-        Map<String,Object> map=new HashMap<>(2);
-        List<Object> list=new ArrayList<>(),list1=new ArrayList<>();
+        Map<String,Object> map=new HashMap<>(1);
+
         List<Record> list2;
         if("world".equals(type)) {
            list2 = recordService.getWorldById(id);
+           key.insert(0,"country_");
         }
         else if("china".equals(type)){
             list2=recordService.getChinaById(id);
-
+            key.insert(0,"city_");
         }
         else {
             return "invalid request";
@@ -46,21 +48,27 @@ public class RecordController {
         Collections.reverse(list2);
         String toParsed;
 
+        List<List<Object>> list=new ArrayList<>();
+        List<Object> list1;
         for(Record record : list2){
+            list1=new ArrayList<>();
             if(list2.size()<=gran){
                 return "invalid query size!";
                 }
 
             else if(list2.indexOf(record)%gran==0) {
-                toParsed = DateUtil.parseDateFormat(record.getDateId());
-                list.add(toParsed);
+
+                toParsed = DateUtil.parseDateFormat(record.getDateId(),"/");
+                list1.add(toParsed);
                 list1.add(record.getConfirmedCount());
+                list.add(list1);
+
             }
 
         }
 
-        map.put("x_data",list);
-        map.put("y_data",list1);
+        map.put(key.toString(),list);
+
 
         return JSON.toJSONString(map);
 

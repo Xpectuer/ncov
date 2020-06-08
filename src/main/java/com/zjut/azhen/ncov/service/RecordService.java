@@ -21,11 +21,11 @@ public class RecordService {
     }
 
     public List<Record> getWorldById(Integer id){
-        return recordMapper.getWorldById(id,0,20);
+        return recordMapper.getWorldById(id,0,120);
     }
 
     public List<Record> getChinaById(Integer id){
-        return recordMapper.getChinaById(id,0,20);
+        return recordMapper.getChinaById(id,0,120);
     }
 
     //写缓存map
