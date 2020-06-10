@@ -4,12 +4,9 @@ package com.zjut.azhen.ncov.service;
 import com.zjut.azhen.ncov.bean.Region;
 import com.zjut.azhen.ncov.mapping.RegionMapper;
 
-import com.zjut.azhen.ncov.utils.RedisUtil;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
-import org.springframework.data.redis.core.ValueOperations;
-
 
 
 /**
@@ -19,33 +16,26 @@ import org.springframework.data.redis.core.ValueOperations;
 public class RegionService {
 
     private final RegionMapper regionMapper;
-    private RedisUtil redisTemplate;
+
+
 
     public RegionService(RegionMapper mapper){
         regionMapper=mapper;
     }
 
+    @Cacheable(key="#root.methodName",value = "RegionById#3600",sync = true)
     public Region getRegionRealtimeById(int id){
-//        String key = "User" + id;
-//
-//        ValueOperations<String, Region> operations = null;
-//        //cache
-//        boolean hasKey = redisTemplate.hasKey(key);
-//
-//        if(hasKey){
-//            Region region = operations.get(key);
-//            return region;
-//        }else{
-//            Region region=regionMapper.getRegionRealtimeById(id);
-//            operations.set(key, region, 5);
-//        }
+
         Region region=regionMapper.getRegionRealtimeById(id);
        System.out.println(region.getConfirmed());
         return region;
     }
+    @Cacheable(key="#root.methodName",value = "Regions#3600",sync = true)
     public List<Region>  getRegions(){
         return regionMapper.getRegions();
     }
+
+    @Cacheable(key = "#root.methodName" ,value = "World#3600",sync = true)
     public List<Region>  getWorld(){
 
         return regionMapper.getWorld();
@@ -57,10 +47,12 @@ public class RegionService {
      * @param num
      * @return List<Region>
      */
+    @Cacheable(key = "#root.methodName" ,value = "WorldRank#3600",sync = true)
     public List<Region> getWorldRank(Integer num){
         return regionMapper.getWorldRank(0,num);
 
     }
+    @Cacheable(key = "#root.methodName" ,value = "ChinaRank#3600",sync = true)
     public List<Region> getChinaRank(Integer num){
         return  regionMapper.getChinaRank(0,num);
     }

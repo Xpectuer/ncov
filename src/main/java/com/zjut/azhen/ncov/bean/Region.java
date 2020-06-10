@@ -2,10 +2,12 @@ package com.zjut.azhen.ncov.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.Serializable;
+
 /**
  * @author alex
  */
-public class Region {
+public class Region implements Serializable {
 
 
     private int id;

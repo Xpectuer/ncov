@@ -2,6 +2,7 @@ package com.zjut.azhen.ncov.service;
 
 import com.zjut.azhen.ncov.bean.Record;
 import com.zjut.azhen.ncov.mapping.RecordMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,13 +17,17 @@ import java.util.Map;
 public class RecordService {
     private final RecordMapper recordMapper;
 
+
     public RecordService(RecordMapper recordMapper){
         this.recordMapper=recordMapper;
     }
 
+    @Cacheable(key = "#root.methodName" ,value = "getWorldById#3600",sync = true)
     public List<Record> getWorldById(Integer id){
         return recordMapper.getWorldById(id,0,120);
     }
+
+    @Cacheable(key = "#root.methodName" ,value = "getChinaById#3600",sync = true)
 
     public List<Record> getChinaById(Integer id){
         return recordMapper.getChinaById(id,0,120);
@@ -34,6 +39,8 @@ public class RecordService {
      * @author alex
      * @return Map
      */
+    @Cacheable(key = "#root.methodName" ,value = "DashBoard#3600",sync = true)
+
     public Map<String,Integer> getDashBoard(){
         Map<String,Integer> map=new HashMap<>(6);
         List<Record> list=recordMapper.getWorldById(143,0,2);
