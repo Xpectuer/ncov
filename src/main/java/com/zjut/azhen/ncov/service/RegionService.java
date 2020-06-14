@@ -23,7 +23,7 @@ public class RegionService {
         regionMapper=mapper;
     }
 
-    @Cacheable(key="#root.methodName",value = "RegionById#3600",sync = true)
+    @Cacheable(key="#id",value = "RegionById#3600",sync = true)
     public Region getRegionRealtimeById(int id){
 
         Region region=regionMapper.getRegionRealtimeById(id);
@@ -47,12 +47,12 @@ public class RegionService {
      * @param num
      * @return List<Region>
      */
-    @Cacheable(key = "#root.methodName" ,value = "WorldRank#3600",sync = true)
+    @Cacheable(key = "#num" ,value = "WorldRank#3600",sync = true)
     public List<Region> getWorldRank(Integer num){
         return regionMapper.getWorldRank(0,num);
 
     }
-    @Cacheable(key = "#root.methodName" ,value = "ChinaRank#3600",sync = true)
+    @Cacheable(key = "#num" ,value = "ChinaRank#3600",sync = true)
     public List<Region> getChinaRank(Integer num){
         return  regionMapper.getChinaRank(0,num);
     }

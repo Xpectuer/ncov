@@ -22,12 +22,12 @@ public class RecordService {
         this.recordMapper=recordMapper;
     }
 
-    @Cacheable(key = "#root.methodName" ,value = "getWorldById#3600",sync = true)
+    @Cacheable(key = "#id" ,value = "getWorldById#3600",sync = true)
     public List<Record> getWorldById(Integer id){
         return recordMapper.getWorldById(id,0,120);
     }
 
-    @Cacheable(key = "#root.methodName" ,value = "getChinaById#3600",sync = true)
+    @Cacheable(key = "#id" ,value = "getChinaById#3600",sync = true)
 
     public List<Record> getChinaById(Integer id){
         return recordMapper.getChinaById(id,0,120);
